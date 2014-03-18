@@ -147,13 +147,13 @@ class MaestranoService
      */
     public function getAfterSsoSignInPath()
     {
-      if ($this->getPhpSession()) {
-				$session = & $this->getPhpSession();
-				if (isset($session['mno_previous_url'])) {
-					return $session['mno_previous_url'];
-				}
-        
-			}
+      //       if ($this->getPhpSession()) {
+      //   $session = & $this->getPhpSession();
+      //   if (isset($session['mno_previous_url'])) {
+      //     return $session['mno_previous_url'];
+      //   }
+      //         
+      // }
 			return self::$_default_after_sso_sign_in_path;
     }
   

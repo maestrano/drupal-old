@@ -10,10 +10,20 @@ require MAESTRANO_ROOT . '/app/init/base.php';
 //-----------------------------------------------
 // Require your app specific files here
 //-----------------------------------------------
-//define('MY_APP_DIR', realpath(MAESTRANO_ROOT . '/../'));
-//require MY_APP_DIR . '/include/some_class_file.php';
-//require MY_APP_DIR . '/config/some_database_config_file.php';
+define('APP_DIR', realpath(MAESTRANO_ROOT . '/../'));
+define('DRUPAL_ROOT',APP_DIR);
+chdir(APP_DIR);
+require_once APP_DIR . '/includes/bootstrap.inc';
 
+// Make sure cookie domain is set to the right value
+$cookie_domain = $_SERVER['HTTP_HOST'];
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+
+
+
+//global $cookie_domain;
+//echo $cookie_domain;
+//flush();
 //-----------------------------------------------
 // Perform your custom preparation code
 //-----------------------------------------------

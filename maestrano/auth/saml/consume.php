@@ -14,21 +14,21 @@
 //-----------------------------------------------
 define("MAESTRANO_ROOT", realpath(dirname(__FILE__) . '/../../'));
 
-error_reporting(0);
+error_reporting(E_ALL);
 
 require MAESTRANO_ROOT . '/app/init/auth.php';
 
 // Destroy session completely to avoid garbage (undeclared classes)
 // but keep previous url if defined
-session_start();
+//session_start();
 if(isset($_SESSION['mno_previous_url'])) {
 	$previous_url = $_SESSION['mno_previous_url'];
 }
-session_unset();
-session_destroy();
+//session_unset();
+//session_destroy();
 
 // Restart session and inject previous url if defined
-session_start();
+//session_start();
 if(isset($previous_url)) {
 	$_SESSION['mno_previous_url'] = $previous_url;
 }
@@ -40,6 +40,7 @@ $maestrano = MaestranoService::getInstance();
 if (!isset($opts)) {
   $opts = array();
 }
+
 
 // Build SAML response
 $samlResponse = new OneLogin_Saml_Response($maestrano->getSettings()->getSamlSettings(), $_POST['SAMLResponse']);
@@ -76,4 +77,5 @@ try {
 catch (Exception $e) {
     echo 'There was an error during the authentication process.<br/>';
     echo 'Please try again. If issue persists please contact support@maestrano.com';
+    echo $e;
 }
