@@ -41,16 +41,12 @@ class MnoSsoUser extends MnoSsoBaseUser
   {
     global $user;
     $user = db_query("SELECT * FROM users WHERE uid = :uid", array(':uid' => $this->local_id))->fetchObject();
-    error_log("In setInSession: " . $user->uid);
     
     if ($user) {
         // Function uses $user as global variable
         $form_state['uid'] = $user->uid;
         
         user_login_finalize($form_state);
-        //user_login_submit(array(), $form_state);
-        //var_dump($_SESSION);
-        //flush();
         
         return true;
     } else {

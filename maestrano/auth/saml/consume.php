@@ -77,5 +77,4 @@ try {
 catch (Exception $e) {
     echo 'There was an error during the authentication process.<br/>';
     echo 'Please try again. If issue persists please contact support@maestrano.com';
-    echo $e;
 }
