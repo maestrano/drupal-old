@@ -1,0 +1,23 @@
+<?php
+
+// Do not run the authentication code below
+// if we are in the maestrano sso actions (index/consume)
+if (defined('MAESTRANO_ROOT')) return 1;
+
+require_once realpath(dirname(__FILE__) . '/../../') . '/maestrano/app/init/base.php';
+$maestrano = MaestranoService::getInstance();
+
+// Check Maestrano session and perform
+// redirects based on context
+if ($maestrano->isSsoEnabled()) {
+  global $user;
+  
+  // If user is logged in and is a maestrano user
+  // then check session is still valid
+  if ($user->uid && $user->mno_uid) {
+    if (! $maestrano->getSsoSession()->isValid()) {
+      header("Location: " . $maestrano->getSsoInitUrl());
+      exit;
+    }
+  }
+}

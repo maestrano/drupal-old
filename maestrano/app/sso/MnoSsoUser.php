@@ -90,12 +90,10 @@ class MnoSsoUser extends MnoSsoBaseUser
    */
   protected function buildLocalUser()
   {
-    $password = $this->generatePassword();
-    
     $user = Array(
       'name'     => $this->formatUniqueUsername(),
       'mail'     => $this->email,
-      'pass'     => Array('pass1' => $password, 'pass2' => $password),
+      'pass'     => $this->generatePassword(),
       'status'   => 1,
       'roles'    => $this->getRolesToAssign()
     );
@@ -123,16 +121,21 @@ class MnoSsoUser extends MnoSsoBaseUser
    * @return the ID of the user created, null otherwise
    */
   public function getRolesToAssign() {
-    $roles = [2]; // User
+    $roles = []; // User
+    
+    // Drupal only look at the array **keys** to assign
+    // to role. Content of the key is useless
+    $default_user_role = Array(2 => 1);
+    $default_admin_role = Array(3 => 3);
     
     if ($this->app_owner) {
-      $roles = [2,3]; // Admin
+      $roles = $default_admin_role; // Admin
     } else {
       foreach ($this->organizations as $organization) {
         if ($organization['role'] == 'Admin' || $organization['role'] == 'Super Admin') {
-          $roles = [2,3]; // Admin
+          $roles = $default_admin_role; // Admin
         } else {
-          $roles = [2]; // User
+          $roles = $default_user_role; // User
         }
       }
     }

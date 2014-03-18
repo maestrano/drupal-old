@@ -50,9 +50,12 @@ class MnoSsoSession
       // Populate attributes from params
       $this->settings = $mno_settings;
       $this->session = & $session;
-      $this->uid = $session['mno_uid'];
-      $this->token = $session['mno_session'];
-      $this->recheck = new DateTime($session['mno_session_recheck']);
+      if (array_key_exists('mno_uid', $session)) {
+        $this->uid = $session['mno_uid'];
+        $this->token = $session['mno_session'];
+        $this->recheck = new DateTime($session['mno_session_recheck']);
+      }
+      
   }
   
   /**
@@ -123,6 +126,8 @@ class MnoSsoSession
       * @return boolean the validity of the session
       */
       public function isValid() {
+        if(!$this->uid) return false;
+        
         if ($this->remoteCheckRequired()) {
           if ($this->performRemoteCheck()) {
             $this->session['mno_session_recheck'] = $this->recheck->format(DateTime::ISO8601);
