@@ -117,7 +117,7 @@ class MnoSsoUser extends MnoSsoBaseUser
    * @return the ID of the user created, null otherwise
    */
   public function getRolesToAssign() {
-    $roles = []; // User
+    $roles = Array(); // User
     
     // Drupal only look at the array **keys** to assign
     // to role. Content of the key is useless
