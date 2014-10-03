@@ -4394,7 +4394,13 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
       }
     }
   }
-
+  
+  // Add Maestrano Star!
+  $output .= "<script src='//cdn.maestrano.com/apps/mno_libs/mno-loader.js' type='text/javascript'></script>" . "\n"
+  "<script type='text/javascript'>
+    window.mnoLoader.init('drupal','1');
+  </script>";
+  
   // Keep the order of JS files consistent as some are preprocessed and others are not.
   // Make sure any inline or JS setting variables appear last after libraries have loaded.
   return implode('', $processed) . $output;
