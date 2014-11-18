@@ -4396,7 +4396,7 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
   }
   
   // Add Maestrano Star!
-  $output .= "<script src='//cdn.maestrano.com/apps/mno_libs/mno-loader.js' type='text/javascript'></script>" . "\n"
+  $output .= "<script src='//cdn.maestrano.com/apps/mno_libs/mno-loader.js' type='text/javascript'></script>" . "\n" .
   "<script type='text/javascript'>
     window.mnoLoader.init('drupal','1');
   </script>";
